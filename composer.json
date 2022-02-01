@@ -3,6 +3,11 @@
     "description": "Testsuite for the Booosta PHP Framework",
     "license": "LGPL-3.0-only",
     "type": "library",
+    "autoload": {
+        "psr-4": {
+            "booosta\\installer\\": "install"
+        }
+    },
     "authors": [
         {
             "name": "Peter Buzanits",
