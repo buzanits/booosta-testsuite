@@ -1,0 +1,5 @@
+vendor/
+install/
+composer.lock
+debug.msg
+

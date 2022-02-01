@@ -1,0 +1,38 @@
+{
+    "name": "booosta/testsuite",
+    "description": "Testsuite for the Booosta PHP Framework",
+    "license": "LGPL-3.0-only",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Peter Buzanits",
+            "email": "peter@icb.at"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0.0",
+        "booosta/webapp-package": "dev-master",
+        "booosta/adminlte": "dev-master",
+        "booosta/urlhandler": "dev-master",
+        "booosta/usersystem": "dev-master",
+        "booosta/db_authenticator": "dev-master",
+        "booosta/db_privileges": "dev-master",
+        "booosta/mysqli": "dev-master"
+    },
+    "scripts": {
+        "letsgo-test": [
+            "\\booosta\\installer\\Installer::letsgo"
+        ],
+        "letsgo": [
+            "\\booosta\\installer\\Installer::letsgo"
+        ],
+        "letsgo-minimal": [
+            "\\booosta\\installer\\Installer::letsgo_minimal"
+        ],
+        "mkfiles": [
+            "@putenv COMPOSER=vendor/booosta/mkfiles/composer.json",
+            "@composer mkfiles" 
+        ]
+    }
+}
