@@ -380,10 +380,6 @@ INSERT INTO `song` (`id`, `compactdisc`, `name`, `length`, `number`) VALUES
 (4, 1, 'Happy New Year', 183, 3);
 
 --
--- Indexes for dumped tables
---
-
---
 -- Indexes for table `compactdisc`
 --
 ALTER TABLE `compactdisc`
@@ -395,10 +391,6 @@ ALTER TABLE `compactdisc`
 ALTER TABLE `song`
   ADD PRIMARY KEY (`id`),
   ADD KEY `compactdisc` (`compactdisc`);
-
---
--- AUTO_INCREMENT for dumped tables
---
 
 --
 -- AUTO_INCREMENT for table `compactdisc`
@@ -413,15 +405,36 @@ ALTER TABLE `song`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
---
-
---
 -- Constraints for table `song`
 --
 ALTER TABLE `song`
   ADD CONSTRAINT `song_ibfk_1` FOREIGN KEY (`compactdisc`) REFERENCES `compactdisc` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+--
+-- Table structure for table `event`
+--
+
+CREATE TABLE `event` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `startdate` datetime NOT NULL,
+  `enddate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for table `event`
+--
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `event`
+--
+ALTER TABLE `event`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
