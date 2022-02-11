@@ -7,7 +7,7 @@
 
 {BTEXT|name|texttitle::Name}
 {BTEXT|startdate|{%startdate}|texttitle::Startdate}
-{BTEXT|enddate|texttitle::Enddate}
+{BTEXT|enddate|{%enddate}|texttitle::Enddate}
 
 {BFORMSUBMIT|class::center-block}
 {BFORMEND}

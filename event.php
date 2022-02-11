@@ -6,6 +6,8 @@ b::load();
 
 class App extends booosta\usersystem\Webappadmin
 {
+  use \booosta\calendar\actions;
+
   #protected $fields = 'name,edit,delete';
   #protected $header = 'Name,Edit,Delete';
   protected $use_subtablelink = false;
@@ -17,18 +19,20 @@ class App extends booosta\usersystem\Webappadmin
   protected function action_default()
   {
     $calendar = $this->makeInstance('fullcalendar');
+    $calendar->set_baseurl('/event.php');
     #if($_SESSION['calendar_view']) $view = $_SESSION['calendar_view']; else $view = 'agendaWeek';
 
     $calendar->set_lang('de');
     #$calendar->set_availableViews('month,agendaWeek,agendaDay,listMonth');
     $calendar->set_defaultview($view);
-    $calendar->set_eventBackgroundColor('blue');
+    #$calendar->set_eventBackgroundColor('red');
 
     $calendar->hide_days('0');
     $calendar->set_minTime('08:00');
     $calendar->set_maxTime('19:00');
     $calendar->set_slotDuration('00:30:00');
 
+    $calendar->set_eventClickCode(true);
     $calendar->set_dayClickCode(true);
     $calendar->set_dragDropCode(true);
     $calendar->set_resizeCode(true);
@@ -44,7 +48,8 @@ class App extends booosta\usersystem\Webappadmin
   
   protected function before_action_new()
   {
-    $this->pass_vars_to_template('startdate');
+    $this->TPL['startdate'] = date('Y-m-d H:i:s', strtotime($this->VAR['startdate']));
+    $this->TPL['enddate'] = date('Y-m-d H:i:s', strtotime($this->VAR['startdate'])+3600);
   }
 }
 
