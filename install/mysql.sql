@@ -419,7 +419,10 @@ CREATE TABLE `event` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `startdate` datetime NOT NULL,
-  `enddate` datetime NOT NULL
+  `enddate` datetime NOT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  `readonly` tinyint(4) NOT NULL DEFAULT 0,
+  `allday` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
