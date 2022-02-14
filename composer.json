@@ -23,6 +23,8 @@
         "booosta/usersystem": "dev-master",
         "booosta/db_authenticator": "dev-master",
         "booosta/db_privileges": "dev-master",
+        "booosta/fullcalendar": "dev-master",
+        "booosta/colorpicker": "dev-master",
         "booosta/mysqli": "dev-master"
     },
     "scripts": {
