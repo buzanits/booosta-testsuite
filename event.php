@@ -23,9 +23,9 @@ class App extends booosta\usersystem\Webappadmin
     #if($_SESSION['calendar_view']) $view = $_SESSION['calendar_view']; else $view = 'agendaWeek';
 
     $calendar->set_lang('de');
-    #$calendar->set_availableViews('month,agendaWeek,agendaDay,listMonth');
+    $calendar->set_availableViews('dayGridMonth,timeGridWeek,timeGridDay,listMonth');
     $calendar->set_defaultview($view);
-    #$calendar->set_eventBackgroundColor('red');
+    $calendar->set_eventBackgroundColor('purple');
 
     $calendar->hide_days('0');
     $calendar->set_minTime('08:00');
@@ -48,8 +48,7 @@ class App extends booosta\usersystem\Webappadmin
   
   protected function before_action_new()
   {
-    $this->TPL['startdate'] = date('Y-m-d H:i:s', strtotime($this->VAR['startdate']));
-    $this->TPL['enddate'] = date('Y-m-d H:i:s', strtotime($this->VAR['startdate'])+3600);
+    $this->set_event_dates(60);
   }
 }
 
