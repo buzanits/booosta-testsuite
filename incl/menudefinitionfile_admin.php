@@ -20,6 +20,7 @@ $menu = [
                             #'SMS' => '{%base_dir}sms.php',
                             'Test' => '/test',
             'Compactdisc' => 'compactdisc',
+            'Event' => 'event',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',
