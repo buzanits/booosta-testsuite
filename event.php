@@ -12,7 +12,7 @@ class App extends booosta\usersystem\Webappadmin
   #protected $header = 'Name,Edit,Delete';
   protected $use_subtablelink = false;
   
-  #protected $checkbox_fields = '';
+  protected $checkbox_fields = 'allday,readonly';
   protected $urlhandler_action_paramlist = ['new' => 'action/startdate'];
   
   
@@ -49,6 +49,12 @@ class App extends booosta\usersystem\Webappadmin
   protected function before_action_new()
   {
     $this->set_event_dates(60);
+  }
+
+  protected function before_action_edit()
+  {
+    $picker = $this->makeInstance('colorpicker', 'color', $this->get_data('color'));
+    $this->TPL['colorsel'] = $picker->get_html();
   }
 }
 
