@@ -9,7 +9,7 @@
 {BTEXT|name|{*name}|texttitle::Name}
 {BTEXT|startdate|{*startdate}|texttitle::Startdate}
 {BTEXT|enddate|{*enddate}|texttitle::Enddate}
-{%colorsel}
+{COLOR|color|{%color}}
 {BCHECKBOX|readonly|{%readonly}|texttitle::Read only}
 {BCHECKBOX|allday|{%allday}|texttitle::All day event}
 

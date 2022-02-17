@@ -16,11 +16,14 @@ $menu = [
                                     #'User' => '{%base_dir}{%usersystem_dir}exec/admin_user.php',
                                   ],
          'Application' => [
-                            'Dummy' => '/index',
-                            #'SMS' => '{%base_dir}sms.php',
-                            'Test' => '/test',
+            'Startpage' => 'index',
+            'Test' => 'test',
+            'Tabs' => 'test/tabcontainer',
+            'E-Mail' => 'test/email',
             'Compactdisc' => 'compactdisc',
             'Event' => 'event',
+            'Captcha' => 'test/captcha',
+            'Spreadsheet' => 'test/excel',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',

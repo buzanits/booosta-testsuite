@@ -29,39 +29,69 @@ class Test1 extends booosta\usersystem\Webappadmin
 
   protected function action_email()
   {
-    $email = $this->makeInstance('email', 'peter@icb.at', 'peter@internetclub.at', 'Test-Mail', "Testnachricht<br><br>lg, Peter");
-    $result = $email->send();
+    $captcha = $this->makeInstance('Captcha', 'mailcaptcha');
+    $this->TPL['captcha'] = $captcha->get_html();
 
-    $this->maintpl = $result;
+    $this->maintpl = 'tpl/email.tpl';
+  }
+
+  protected function action_emailsend()
+  {
+    if(!$this->check_captcha('mailcaptcha')) $this->raise_error('Wrong Captcha!'); 
+
+    $msg = "<html><body>" . $this->VAR['message'] . "<br><img src='cid:Testimage'></body></html>";
+    $mail = $this->makeInstance('email', $this->VAR['sender'], $this->VAR['recipient'], 'Testmail', $msg);
+
+    if($this->VAR['use_smtp']):
+      $mail->set_backend('smtp');
+      $mail->set_smtp_params(['host' => $this->VAR['smtp_server'], 'auth' => true, 'username' => $this->VAR['smtp_username'], 'password' => $this->VAR['smtp_password']]);
+    endif;
+
+    $file1 = $this->makeInstance('Uploadfile', 'file1', 'upload/', true);
+    if($file1->is_valid()) $mail->set_attachments(array($file1->get_filename() => $file1->get_url()));
+
+    $file1 = $this->makeInstance('Uploadfile', 'picture1');
+    if($file1->is_valid()) $mail->set_images(['Testimage' => $file1->get_url()]);
+
+    $result = $mail->send();
+
+    if($result === true) $this->TPL['output'] = 'Mail sent successfully';
+    else $this->TPL['output'] = "Error: " . print_r($result, true);
+
+    $this->maintpl = booosta\webapp\FEEDBACK;
+    $this->backpage = 'test/email';
+    $this->goback = false;
   }
 
   protected function action_tabcontainer()
   {
+    $icon = '<i class="fas fa-cogs"></i>';
+
     $tabs = $this->makeInstance('tabcontainer', 'test1');
-    $tabs->set_tabs([['name' => 'Eins', 'content' => 'Der erste Content', 'icon' => 'ICON'],
-                     ['name' => 'Zwei', 'content' => 'Der zweite Content', 'icon' => 'ICON'],
-                     ['name' => 'Drei', 'content' => 'Der dritte Content', 'icon' => 'ICON']]);
+    $tabs->set_tabs([['name' => 'One', 'content' => 'The first Content', 'icon' => $icon],
+                     ['name' => 'Two', 'content' => 'The second Content', 'icon' => $icon],
+                     ['name' => 'Three', 'content' => 'The third Content', 'icon' => $icon]]);
 
     $tabs->set_title('Test-Tabs');
     $this->maintpl = $tabs->get_html();
 
     $tabs = $this->makeInstance('tabcontainer', 'test2');
-    $tabs->set_tabs([['name' => 'Eins', 'content' => 'Der erste Content', 'icon' => 'ICON'],
-                     ['name' => 'Zwei', 'content' => 'Der zweite Content', 'icon' => 'ICON'],
-                     ['name' => 'Drei', 'content' => 'Der dritte Content', 'icon' => 'ICON']]);
+    $tabs->set_tabs([['name' => 'One', 'content' => 'The first Content', 'icon' => $icon],
+                     ['name' => 'Two', 'content' => 'The second Content', 'icon' => $icon],
+                     ['name' => 'Three', 'content' => 'The third Content', 'icon' => $icon]]);
 
     $tabs->set_type('vertical');
     $this->maintpl .= $tabs->get_html();
 
     $tabs3 = $this->makeInstance('tabcontainer', 'test3');
-    $tabs3->set_tabs([['name' => 'Eins', 'content' => 'Der erste Content', 'icon' => 'ICON'],
-                      ['name' => 'Zwei', 'content' => 'Der zweite Content', 'icon' => 'ICON'],
-                      ['name' => 'Drei', 'content' => 'Der dritte Content', 'icon' => 'ICON']]);
+    $tabs3->set_tabs([['name' => 'One', 'content' => 'The first Content', 'icon' => $icon],
+                      ['name' => 'Two', 'content' => 'The second Content', 'icon' => $icon],
+                      ['name' => 'Three', 'content' => 'The third Content', 'icon' => $icon]]);
 
     $tabs = $this->makeInstance('tabcontainer', 'test4');
-    $tabs->set_tabs([['name' => 'Eins', 'content' => 'Der erste Content', 'icon' => 'ICON'],
-                     ['name' => 'Zwei', 'content' => $tabs3, 'icon' => 'ICON'],
-                     ['name' => 'Drei', 'content' => 'Der dritte Content', 'icon' => 'ICON']]);
+    $tabs->set_tabs([['name' => 'One', 'content' => 'The first Content', 'icon' => $icon],
+                     ['name' => 'Two', 'content' => $tabs3, 'icon' => $icon],
+                     ['name' => 'Three', 'content' => 'The third Content', 'icon' => $icon]]);
 
     $tabs->set_type('vertical');
     $this->maintpl .= '<br><br>' . $tabs->get_html();
@@ -101,8 +131,46 @@ class Test1 extends booosta\usersystem\Webappadmin
     $this->TPL['output'] .= "<br>$info";
     $this->maintpl = 'tpl/simple.tpl';
   }
+
+  protected function action_captcha()
+  {
+    $captcha = $this->makeInstance('captcha');
+    #$captcha = $this->makeInstance('Captcha', 'mycaptcha');
+    $this->TPL['captcha'] = $captcha->get_html();
+
+    $this->maintpl = 'tpl/captcha.tpl';
+  }
+
+  protected function action_checkcaptcha()
+  {
+    $this->TPL['result'] = $this->check_captcha() ? 'right' : 'wrong';
+    #$this->TPL['result'] = $this->check_captcha('mycaptcha') ? 'right' : 'wrong';
+    $this->maintpl = 'tpl/captcharesult.tpl';
+  }
+
+  protected function action_excel()
+  {
+    $this->maintpl = 'tpl/excel.tpl';
+  }
+
+  protected function action_readexcel()
+  {
+    $xls = $this->makeInstance('Uploadfile', 'xlsfile');
+    $reader = $this->makeInstance('Spreadsheet', $xls->get_url());
+    $reader->extract_hyperlinks();
+    $data = $reader->get_indexed_data(false, true);  // param: convert to utf8, use header
+
+    $table = $this->makeInstance('Tablelister', $data, true);  // last param: tabletags
+    $table->set_header($reader->get_header());
+    $table->always_show_header(true);
+    $table->set_th_attribute('style', 'border: 1px solid black;');
+    $table->set_data_attribute('style', 'border: 1px solid black;');
+
+    $this->TPL['liste'] = $table->get_html();
+
+    $this->maintpl = 'tpl/excel_show.tpl';
+  }
 }
 
 $a = new Test1();
 $a();
-

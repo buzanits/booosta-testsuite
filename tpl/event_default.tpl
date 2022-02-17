@@ -5,3 +5,13 @@
 
 {/BPANEL}
 {/BBOXCENTER}
+
+<br><br>
+
+{BBOXCENTER|bboxsize::12}
+{BPANEL|paneltitle::Smallcalendar}
+
+{%smallcalendar}
+
+{/BPANEL}
+{/BBOXCENTER}

@@ -43,6 +43,11 @@ class App extends booosta\usersystem\Webappadmin
 
     $calendar->load_events();
     $this->TPL['fullcalendar'] = $calendar->get_html();
+
+    $smallcalendar = $this->makeInstance('smallcalendar');
+    $smallcalendar->load_events();
+    $this->TPL['smallcalendar'] = $smallcalendar->get_html();
+
     $this->maintpl = 'tpl/event_default.tpl';
   }
   
@@ -51,11 +56,13 @@ class App extends booosta\usersystem\Webappadmin
     $this->set_event_dates(60);
   }
 
+  /*
   protected function before_action_edit()
   {
     $picker = $this->makeInstance('colorpicker', 'color', $this->get_data('color'));
     $this->TPL['colorsel'] = $picker->get_html();
   }
+  */
 }
 
 $app = new App('event');
