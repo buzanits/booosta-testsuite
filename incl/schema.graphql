@@ -1,0 +1,78 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    compactdisc: [Compactdisc]
+    song: [Song]
+
+    get_disc_songs(disc: ID!): [Song]
+}
+
+type Mutation {
+    create_song(data: SongInput!): Song
+    create_compactdisc(data: CompactdiscInput!): Compactdisc
+    update_song(data: SongInput!): Song
+    update_compactdisc(data: compactdiscInput!): Compactdisc
+    delete_song(id: ID!): SuccessMsg
+    delete_compactdisc(id: ID!): SuccessMsg
+}
+
+interface Node {
+    graphqlid: ID!
+}
+
+type SuccessMsg {
+    status: String
+    message: String
+}
+
+type DebugMsg {
+    status: String
+    message: String
+}
+
+type Compactdisc implements Node {
+    graphqlid: ID!
+    id: Int!
+    name: String!
+    artist: String!
+    genre: Genre
+    publication: String
+    description: String
+    cdr: Int
+    song: [Song]
+}
+
+type Song implements Node {
+    graphqlid: ID!
+    id: Int!
+    compactdisc: Compactdisc!
+    name: String!
+    length: Int!
+    number: Int!
+}
+
+enum Genre {
+    pop
+    rock
+    classic
+    other
+}
+
+input CompactdiscInput {
+    name: String!
+    artist: String!
+    genre: Genre!
+    publication: String
+    description: String
+    cdr: Int!
+}
+
+input SongInput {
+    compactdiscID: Int!
+    name: String!
+    length: Int!
+    number: Int!
+}
