@@ -31,7 +31,13 @@
         "booosta/db_privileges": "dev-master",
         "booosta/fullcalendar": "dev-master",
         "booosta/colorpicker": "dev-master",
-        "booosta/mysqli": "dev-master"
+        "booosta/mysqli": "dev-master",
+        "booosta/smallcalendar": "dev-master",
+        "booosta/captcha": "dev-master",
+        "booosta/spreadsheet": "dev-master",
+        "booosta/ftp": "dev-master",
+        "booosta/graph1": "dev-master",
+        "booosta/graph": "dev-master"
     },
     "scripts": {
         "letsgo-test": [

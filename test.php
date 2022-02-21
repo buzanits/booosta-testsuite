@@ -170,6 +170,52 @@ class Test1 extends booosta\usersystem\Webappadmin
 
     $this->maintpl = 'tpl/excel_show.tpl';
   }
+
+  protected function action_ftp()
+  {
+    $this->maintpl = 'tpl/ftp.tpl';
+  }
+
+  protected function action_ftpload()
+  {
+    $v = $this->VAR;
+    $ftp = $this->makeInstance('ftp', $v['server'], $v['user'], $v['password'], ['plaintext' => true]);
+    #$ftp = $this->makeInstance('ftp', $v['server'], $v['user'], $v['password'], ['implicit_tls' => true]);
+    #$ftp = $this->makeInstance('ftp', $v['server'], $v['user'], $v['password']);
+    if($error = $ftp->get_error()) $this->raise_error("FTP connect failed: $error");
+
+    $localfile = basename($v['file']);
+    $ftp->download($v['file'], "upload/$localfile");
+
+    $this->download_file("upload/$localfile");
+    $this->maintpl = 'tpl/ftp.tpl';
+  }
+
+  protected function action_graph()
+  {
+    $data = [[[0,2], [1,4], [2,1]], [[0,3], [1,3], [2,0]]];
+    $chart = $this->makeInstance('graph1', 'testgraph', $data);
+    $chart->set_option('yaxis', 'max', 10);
+    $chart->set_title('Test-Chart');
+    $chart->set_width(600);
+    $chart->set_height(200);
+    $chart->set_colors(['#FF0000', '#0000FF']);
+    $this->TPL['chart'] = $chart->get_html();
+
+    $data = array('2010' => 150, '2011' => 130, '2012' => 177, '2013' => 170, '2014' => 160);
+    $chart = $this->makeInstance("booosta\\graph\\Barchart", $data);
+    $chart->set_title('Test-Bar-Chart');
+    $this->TPL['chartlink'] = $chart->get_link();
+    $this->TPL['barchart'] = $chart->get_html();
+
+    $data = array('2010' => 15, '2011' => 130, '2012' => 70, '2013' => 70, '2014' => 100);
+    $chart = $this->makeInstance("booosta\\graph\\Piechart", $data);
+    $chart->set_title('Test-Pie-Chart');
+    $this->TPL['chartlink'] = $chart->get_link();
+    $this->TPL['piechart'] = $chart->get_html();
+
+    $this->maintpl = 'tpl/graph.tpl';
+  }
 }
 
 $a = new Test1();
