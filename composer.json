@@ -37,7 +37,8 @@
         "booosta/spreadsheet": "dev-master",
         "booosta/ftp": "dev-master",
         "booosta/graph1": "dev-master",
-        "booosta/graph": "dev-master"
+        "booosta/graph": "dev-master",
+        "booosta/graphql": "dev-master"
     },
     "scripts": {
         "letsgo-test": [

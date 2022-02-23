@@ -10,7 +10,7 @@ class App extends \booosta\graphql\Graphql
   protected $debugmode = true;
   #protected $datafields = 'login,createEvent,user,ticketcomment,ticketattachment';
   protected $public_datafields = 'test,compactdisc,song';
-  #protected $public_editfields = 'test';
+  protected $public_editfields = 'compactdisc,song';
 
   protected $subitems = ['compactdisc' => ['song']];
   protected $foreignkeys = ['song' => ['compactdisc']];

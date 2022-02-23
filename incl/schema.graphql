@@ -12,9 +12,9 @@ type Query {
 
 type Mutation {
     create_song(data: SongInput!): Song
-    create_compactdisc(data: CompactdiscInput!): Compactdisc
+    create_compactdisc(data: CompactdiscInput): Compactdisc
     update_song(data: SongInput!): Song
-    update_compactdisc(data: compactdiscInput!): Compactdisc
+    update_compactdisc(data: CompactdiscInput): Compactdisc
     delete_song(id: ID!): SuccessMsg
     delete_compactdisc(id: ID!): SuccessMsg
 }
@@ -62,6 +62,7 @@ enum Genre {
 }
 
 input CompactdiscInput {
+    id: Int
     name: String!
     artist: String!
     genre: Genre!
