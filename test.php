@@ -216,6 +216,32 @@ class Test1 extends booosta\usersystem\Webappadmin
 
     $this->maintpl = 'tpl/graph.tpl';
   }
+
+  protected function action_image()
+  {
+    copy('tpl/testimage_orig.jpg', 'upload/testimage.jpg');
+    $image = $this->makeInstance('image', 'upload/testimage.jpg');
+    $image->resize(300, 300);
+
+    $this->TPL['newname'] = $image->get_filename();
+
+    $this->maintpl = 'tpl/image.tpl';
+  }
+
+  protected function action_imageselect()
+  {
+    $options = ['1' => 'Grand Canyon', '2' => 'Yellowstone', '3' => 'Yosemite'];
+    $select = $this->makeInstance('Imageselect', 'test', $options, ['2', '3']);
+    $select->set_images(['1' => 'tpl/grandcanyon.png', '2' => 'tpl/yellowstone.png', '3' => 'tpl/yosemite.png']);
+
+    $this->TPL['output'] = $select->get_html();
+    $this->maintpl = 'tpl/imageselect.tpl';
+  }
+
+  protected function action_sendimageselect()
+  {
+    $this->maintpl = '<pre>' . print_r($this->VAR, true) . '</pre>';
+  }
 }
 
 $a = new Test1();
