@@ -242,6 +242,23 @@ class Test1 extends booosta\usersystem\Webappadmin
   {
     $this->maintpl = '<pre>' . print_r($this->VAR, true) . '</pre>';
   }
+
+  protected function action_imap()
+  {
+    $this->maintpl = 'tpl/imap.tpl';
+  }
+
+  protected function action_retrieveimap()
+  {
+    $imap = $this->makeInstance('imap', $this->VAR['server'], $this->VAR['username'], $this->VAR['password'], true);
+    if($error = $imap->error()) $this->raise_error("This error occured: $error");
+
+    $msg = $imap->get_last_message();
+    $this->TPL['sender'] = $msg->get_sender();
+    $this->TPL['subject'] = $msg->get_subject();
+
+    $this->maintpl = 'tpl/imapshow.tpl';
+  }
 }
 
 $a = new Test1();
