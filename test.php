@@ -143,8 +143,12 @@ class Test1 extends booosta\usersystem\Webappadmin
 
   protected function action_checkcaptcha()
   {
-    $this->TPL['result'] = $this->check_captcha() ? 'right' : 'wrong';
+    $result = $this->TPL['result'] = $this->check_captcha() ? 'right' : 'wrong';
     #$this->TPL['result'] = $this->check_captcha('mycaptcha') ? 'right' : 'wrong';
+
+    if($result == 'right') $this->add_notification('A correct captcha has been entered', null, 'success', false);  // text, user, type, autoseen
+    else $this->add_notification('A wrong captcha has been entered', null, 'danger', false);  // text, user, type, autoseen
+
     $this->maintpl = 'tpl/captcharesult.tpl';
   }
 
@@ -262,4 +266,5 @@ class Test1 extends booosta\usersystem\Webappadmin
 }
 
 $a = new Test1();
+$a->auth_user();
 $a();
