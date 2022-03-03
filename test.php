@@ -263,6 +263,40 @@ class Test1 extends booosta\usersystem\Webappadmin
 
     $this->maintpl = 'tpl/imapshow.tpl';
   }
+
+  protected function action_openstreetmap()
+  {
+    $lat = $this->VAR['lat'] ?? 37.82;
+    $lon = $this->VAR['lon'] ?? -122.4782;
+    if($lat === '') $lat = 37.82;
+    if($lon === '') $lon = -122.4782;
+
+    #b::debug("lat: $lat, lon: $lon");
+    $map = $this->makeInstance('openstreetmap_org', $lat, $lon, 12);  // lat, lon, zoom (default=15)
+    $map->height('300px');
+    $map->width('400px');
+    $map->add_marker();  // default in center of map
+    #$map->add_marker($lat, $lon);
+
+    $this->TPL['map'] = $map->get_html();
+    $this->maintpl = 'tpl/openstreetmap.tpl';
+  }
+
+  protected function action_pdf()
+  {
+     $this->maintpl = 'tpl/pdfwriter.tpl';
+  }
+
+  protected function action_showpdf()
+  {
+    $writer = $this->makeInstance('Pdfwriter', $this->VAR['html']);
+
+    $picture = $this->makeInstance('Uploadfile', 'picture');
+    if($picture->is_valid()) $writer->addImage($picture->get_url(), 20, 20);
+
+    #$writer->save('/var/www/fw3test/test001.pdf');
+    $writer->download('test.pdf');
+  }
 }
 
 $a = new Test1();
