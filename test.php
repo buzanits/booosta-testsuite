@@ -297,6 +297,44 @@ class Test1 extends booosta\usersystem\Webappadmin
     #$writer->save('/var/www/fw3test/test001.pdf');
     $writer->download('test.pdf');
   }
+
+  protected function action_qrcode()
+  {
+    $this->maintpl = 'tpl/qrcode.tpl';
+
+    $qr = $this->makeInstance('qrcode', 'Booosta QR-Code Test');
+    $qr->save_file('upload/qr.png');
+    $qr->show_js('myqr');
+  }
+
+  protected function action_rest()
+  {
+    $url = 'http://api.icndb.com/jokes/random';
+
+    $rest = $this->makeInstance('rest', $url);
+    $result = $rest();
+
+    if($error = $rest->get_error()) $this->raise_error($error);
+
+    $this->TPL['output'] = '<pre>' . print_r(json_decode($result, true), true) . '</pre>';
+
+    $jokes = $this->makeInstance('JokeREST');
+    $result = $jokes->get_joke();
+    $this->TPL['output'] .= "<br><br> <pre>$result</pre>";
+
+    $this->maintpl = 'tpl/rest.tpl';
+  }
+}
+
+class JokeREST extends \booosta\rest\Application
+{
+  protected $url = 'http://api.icndb.com/jokes/random';
+
+  public function get_joke()
+  {
+    $result = $this->get('');
+    return print_r($result, true);
+  }
 }
 
 $a = new Test1();

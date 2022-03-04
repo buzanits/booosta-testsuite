@@ -38,7 +38,15 @@
         "booosta/ftp": "dev-master",
         "booosta/graph1": "dev-master",
         "booosta/graph": "dev-master",
-        "booosta/graphql": "dev-master"
+        "booosta/graphql": "dev-master",
+        "booosta/image": "dev-master",
+        "booosta/imageselect": "dev-master",
+        "booosta/imap": "dev-master",
+        "booosta/notification": "dev-master",
+        "booosta/openstreetmap_org": "dev-master",
+        "booosta/pdfwriter": "dev-master",
+        "booosta/qrcode": "dev-master",
+        "booosta/rest": "dev-master"
     },
     "scripts": {
         "letsgo-test": [

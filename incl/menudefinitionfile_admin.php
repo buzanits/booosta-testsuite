@@ -31,6 +31,8 @@ $menu = [
             'IMAP' => 'test/imap',
             'Openstreetmap' => 'test/openstreetmap',
             'PDF-Writer' => 'test/pdf',
+            'QR code' => 'test/qrcode',
+            'REST' => 'test/rest',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',
