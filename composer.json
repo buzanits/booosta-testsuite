@@ -46,7 +46,8 @@
         "booosta/openstreetmap_org": "dev-master",
         "booosta/pdfwriter": "dev-master",
         "booosta/qrcode": "dev-master",
-        "booosta/rest": "dev-master"
+        "booosta/rest": "dev-master",
+        "booosta/soap": "dev-master"
     },
     "scripts": {
         "letsgo-test": [

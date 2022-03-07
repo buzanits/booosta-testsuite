@@ -33,6 +33,7 @@ $menu = [
             'PDF-Writer' => 'test/pdf',
             'QR code' => 'test/qrcode',
             'REST' => 'test/rest',
+            'SOAP' => 'test/soap',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',

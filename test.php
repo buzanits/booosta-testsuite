@@ -324,6 +324,16 @@ class Test1 extends booosta\usersystem\Webappadmin
 
     $this->maintpl = 'tpl/rest.tpl';
   }
+
+  protected function action_soap()
+  {
+    $server = $this->makeInstance('soap', 'https://www.dataaccess.com/webservicesserver/NumberConversion.wso?WSDL');
+    $result = $server->NumberToWords(['ubiNum' => 1234]);
+    #$this->TPL['output'] .= print_r($result, true);
+    $this->TPL['output'] .= "<br><br> <pre>" . $result->NumberToWordsResult . "</pre>";
+
+    $this->maintpl = 'tpl/soap.tpl';
+  }
 }
 
 class JokeREST extends \booosta\rest\Application
