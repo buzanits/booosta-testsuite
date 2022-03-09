@@ -334,6 +334,17 @@ class Test1 extends booosta\usersystem\Webappadmin
 
     $this->maintpl = 'tpl/soap.tpl';
   }
+
+  protected function action_tooltip()
+  {
+    $tooltip = $this->makeInstance('tooltip', 'tip');
+    $tooltip->set_content('<h1>Test</h1>
+This is a Test');
+    $tooltip->set_position('left');
+    $this->TPL['output'] = '<br><br><center>' . $tooltip->get_html() . '</center>';
+
+    $this->maintpl = 'tpl/tooltip.tpl';
+  }
 }
 
 class JokeREST extends \booosta\rest\Application

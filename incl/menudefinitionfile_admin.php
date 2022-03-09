@@ -34,6 +34,7 @@ $menu = [
             'QR code' => 'test/qrcode',
             'REST' => 'test/rest',
             'SOAP' => 'test/soap',
+            'Tooltip' => 'test/tooltip',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',

@@ -47,7 +47,8 @@
         "booosta/pdfwriter": "dev-master",
         "booosta/qrcode": "dev-master",
         "booosta/rest": "dev-master",
-        "booosta/soap": "dev-master"
+        "booosta/soap": "dev-master",
+        "booosta/tooltip": "dev-master"
     },
     "scripts": {
         "letsgo-test": [
