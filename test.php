@@ -345,6 +345,30 @@ This is a Test');
 
     $this->maintpl = 'tpl/tooltip.tpl';
   }
+
+  protected function action_sortable()
+  {
+    $list = ['One', 'Two', 'Three'];
+    $sortable = $this->makeInstance('ui_sortable', 'numbers', $list);
+    $this->TPL['list'] = $sortable->get_html();
+
+    $table = [['1', 'One', 'Un', 'Eins'], ['2', 'Two', 'Deux', 'Zwei'], ['3', 'Three', 'Trois', 'Drei']];
+    $sortable = $this->makeInstance("\\booosta\\ui_sortable\\Ui_sortable_table", $table, true, false, 'test.php?action=sort');  // true = use tabletags, false = use datatable
+    $this->TPL['table'] = $sortable->get_html();
+
+    $this->maintpl = 'tpl/sortable.tpl';
+  }
+
+  protected function action_sort()
+  {
+    $origin = $this->VAR['origin'];
+    $destination = $this->VAR['destination'];
+
+    b::debug("Sorting $origin to $destination");
+
+    \booosta\ajax\Ajax::print_response('result', '');
+    $this->no_output = true;
+  }
 }
 
 class JokeREST extends \booosta\rest\Application

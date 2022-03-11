@@ -35,6 +35,7 @@ $menu = [
             'REST' => 'test/rest',
             'SOAP' => 'test/soap',
             'Tooltip' => 'test/tooltip',
+            'Sortable' => 'test/sortable',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',

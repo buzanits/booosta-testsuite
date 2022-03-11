@@ -48,7 +48,8 @@
         "booosta/qrcode": "dev-master",
         "booosta/rest": "dev-master",
         "booosta/soap": "dev-master",
-        "booosta/tooltip": "dev-master"
+        "booosta/tooltip": "dev-master",
+        "booosta/ui_sortable": "dev-master"
     },
     "scripts": {
         "letsgo-test": [
