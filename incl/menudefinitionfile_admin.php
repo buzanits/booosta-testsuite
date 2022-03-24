@@ -36,6 +36,8 @@ $menu = [
             'SOAP' => 'test/soap',
             'Tooltip' => 'test/tooltip',
             'Sortable' => 'test/sortable',
+            'Textarea' => 'test/textarea',
+            'Uploader' => 'test/uploader',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',

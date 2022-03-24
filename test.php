@@ -369,6 +369,34 @@ This is a Test');
     \booosta\ajax\Ajax::print_response('result', '');
     $this->no_output = true;
   }
+
+  protected function action_textarea()
+  {
+    $area = $this->makeInstance('Ui_textarea', 'testarea', 'Test Content');
+    $area->set_counttext('Verfügbare Zeichen:');
+    $area->set_max(30);
+    $this->TPL['output'] = $area->get_html();
+
+    $this->maintpl = 'tpl/textarea.tpl';
+  }
+
+  protected function action_uploader()
+  {
+    $uploader = $this->makeInstance('uploader', 'file1', 'test.php');
+    $uploader->add_hidden('action', 'uploader_upload');
+    $this->TPL['output'] = $uploader->get_html();
+
+    $this->maintpl = 'tpl/uploader.tpl';
+  }
+
+  protected function action_uploader_upload()
+  {
+    #\booosta\debug($_FILES);
+    $file1 = $this->makeInstance('Uploadfile', 'file1');
+    if($file1->is_valid()) $this->TPL['output'] .= 'Uploaded ' . $file1->get_html();
+
+    $this->maintpl = 'tpl/uploader.tpl';
+  }
 }
 
 class JokeREST extends \booosta\rest\Application
