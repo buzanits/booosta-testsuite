@@ -397,6 +397,38 @@ This is a Test');
 
     $this->maintpl = 'tpl/uploader.tpl';
   }
+
+  protected function action_wysiwyg()
+  {
+    $wysiwyg = $this->makeInstance('Wysiwygeditor', 'classic');
+    $wysiwyg->set_content('Test für Classic Editor');
+    $wysiwyg->set_language('de');
+    $this->TPL['classic'] = $wysiwyg->get_html();
+
+    // only classic OR inline editor is possible on one page
+    #$wysiwyg1 = $this->makeInstance('Wysiwygeditor', 'inline');
+    #$wysiwyg1->set_content('Test für Inline Editor');
+    #$wysiwyg1->set_type('inline');
+    #$wysiwyg1->set_ajaxurl('test.php?action=wysiwyg_ajax');
+    #$wysiwyg1->set_language('fr');
+    #$this->TPL['inline'] = $wysiwyg1->get_html();
+
+    $this->maintpl = 'tpl/wysiwyg.tpl';
+  }
+
+  protected function action_wysiwyg_ajax()
+  {
+    b::debug("Got inline WYSIWYG-Content: " . $this->VAR['content']);
+
+    \booosta\ajax\Ajax::print_response('result', '');
+    $this->no_output = true;
+  }
+
+  protected function action_wysiwyg_save()
+  {
+    b::debug("Got classic WYSIWYG-Content: " . $this->VAR['classic']);
+    $this->action_wysiwyg();
+  }
 }
 
 class JokeREST extends \booosta\rest\Application

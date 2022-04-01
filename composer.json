@@ -49,7 +49,10 @@
         "booosta/rest": "dev-master",
         "booosta/soap": "dev-master",
         "booosta/tooltip": "dev-master",
-        "booosta/ui_sortable": "dev-master"
+        "booosta/ui_sortable": "dev-master",
+        "booosta/ui_textarea": "dev-master",
+        "booosta/uploader": "dev-master",
+        "booosta/wysiwygeditor": "dev-master"
     },
     "scripts": {
         "letsgo-test": [

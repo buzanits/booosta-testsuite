@@ -38,6 +38,7 @@ $menu = [
             'Sortable' => 'test/sortable',
             'Textarea' => 'test/textarea',
             'Uploader' => 'test/uploader',
+            'WYSIWYG' => 'test/wysiwyg',
             ###menuitems###
                           ],
          'Logout' => '/logout_adminuser',
